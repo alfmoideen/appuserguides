@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Travel Agency App — Complete User Guide</title>
+<style>
+  :root{
+    --navy:#1f3a5f; --blue:#2f6fb0; --accent:#e8853a;
+    --ink:#1f2430; --muted:#5b6472; --line:#e3e8ef;
+    --bg:#f6f8fb; --card:#ffffff; --green:#1e8e5a; --red:#c0392b;
+    --sidebar:310px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{display:flex;min-height:100vh}
+  aside{width:var(--sidebar);flex:0 0 var(--sidebar);background:var(--navy);color:#dfe7f2;position:sticky;top:0;height:100vh;overflow-y:auto}
+  aside .brand{padding:22px 20px 14px;border-bottom:1px solid rgba(255,255,255,.12)}
+  aside .brand b{color:#fff;font-size:17px;display:block}
+  aside .brand span{font-size:12px;color:#9fb6d4}
+  nav.toc{padding:10px 0 40px}
+  nav.toc a{display:block;color:#c7d6ea;padding:6px 20px;font-size:13.5px;border-left:3px solid transparent}
+  nav.toc a:hover{background:rgba(255,255,255,.06);text-decoration:none;color:#fff}
+  nav.toc a.group{margin-top:12px;color:#7f9ac0;font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:default;padding-bottom:2px}
+  main{flex:1;min-width:0}
+  .container{max-width:920px;margin:0 auto;padding:32px 28px 80px}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:40px 28px}
+  header.hero .container{padding-top:0;padding-bottom:0}
+  header.hero h1{margin:0 0 6px;font-size:29px}
+  header.hero p{margin:0;color:#dbe7f6;font-size:15px}
+  header.hero .meta{margin-top:14px;font-size:13px;color:#bcd0ec}
+  h2{color:var(--navy);font-size:22px;margin:40px 0 10px;padding-bottom:8px;border-bottom:2px solid var(--line);scroll-margin-top:16px}
+  h3{color:var(--blue);font-size:16.5px;margin:22px 0 4px}
+  h4{color:var(--navy);font-size:14.5px;margin:16px 0 2px;text-transform:uppercase;letter-spacing:.03em;font-weight:700}
+  p{margin:8px 0}
+  ul,ol{margin:6px 0 10px 2px;padding-left:22px}
+  li{margin:4px 0}
+  code{background:#eef2f7;padding:1px 6px;border-radius:4px;font-size:13px;color:#324}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:14px 0;box-shadow:0 1px 2px rgba(20,40,80,.04)}
+  .note{border-left:4px solid var(--blue);background:#eef5fc;padding:11px 15px;border-radius:8px;margin:12px 0;font-size:14px}
+  .tip{border-left:4px solid var(--green);background:#eafaf1;padding:11px 15px;border-radius:8px;margin:12px 0;font-size:14px}
+  .warn{border-left:4px solid var(--accent);background:#fdf3e8;padding:11px 15px;border-radius:8px;margin:12px 0;font-size:14px}
+  .admin{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;vertical-align:middle;letter-spacing:.03em}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eff3f8;color:var(--navy)}
+  ol.steps{counter-reset:step;list-style:none;padding-left:0}
+  ol.steps>li{counter-increment:step;position:relative;padding:5px 0 5px 40px;margin:5px 0}
+  ol.steps>li::before{content:counter(step);position:absolute;left:0;top:4px;width:26px;height:26px;background:var(--blue);color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:13px;font-weight:700}
+  footer{border-top:1px solid var(--line);padding:24px 28px;color:var(--muted);font-size:13px;text-align:center}
+  .kbd{background:#fff;border:1px solid #cdd6e2;border-bottom-width:2px;border-radius:5px;padding:1px 7px;font-size:12px}
+  .menu-hint{display:none}
+  @media (max-width:860px){
+    aside{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .2s;z-index:40;box-shadow:2px 0 20px rgba(0,0,0,.3)}
+    body.nav-open aside{transform:translateX(0)}
+    .menu-hint{display:inline-flex;position:fixed;top:12px;left:12px;z-index:50;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:9px 13px;font-size:14px;cursor:pointer;align-items:center;gap:6px}
+    header.hero{padding-top:60px}
+  }
+  @media print{aside,.menu-hint{display:none}main{padding:0}.container{max-width:none}}
+</style>
+</head>
+<body>
+<button class="menu-hint" onclick="document.body.classList.toggle('nav-open')">☰ Menu</button>
+<div class="wrap">
+  <aside>
+    <div class="brand"><b>Travel Agency App</b><span>Complete User Guide (all editions)</span></div>
+    <nav class="toc" onclick="if(window.innerWidth<=860)document.body.classList.remove('nav-open')">
+      <a class="group">Getting started</a>
+      <a href="#about">1. About this guide</a>
+      <a href="#login">2. Logging in &amp; roles</a>
+      <a href="#navigation">3. Navigating the app</a>
+      <a href="#dashboard">4. Home dashboard</a>
+      <a class="group">Core workflow</a>
+      <a href="#clients">5. Clients</a>
+      <a href="#providers">6. Providers / Suppliers</a>
+      <a href="#agents">7. B2B Agents</a>
+      <a href="#bookings">8. Bookings</a>
+      <a href="#bills">9. Bills &amp; invoices</a>
+      <a href="#payments">10. Recording payments</a>
+      <a href="#refunds">11. Refunds &amp; cancellations</a>
+      <a href="#whatsapp">12. WhatsApp invoices</a>
+      <a class="group">Money &amp; settlements</a>
+      <a href="#accounts">13. Cash &amp; Bank accounts</a>
+      <a href="#transfers">14. Transfers</a>
+      <a href="#settlements">15. Supplier &amp; agent settlements</a>
+      <a href="#expenses">16. Office expenses</a>
+      <a class="group">Modules</a>
+      <a href="#packages">17. Packages / Group tours</a>
+      <a href="#attestation">18. Attestation</a>
+      <a class="group">Reports &amp; admin</a>
+      <a href="#reports">19. Reports</a>
+      <a href="#staff">20. Staff Activity</a>
+      <a href="#activity">21. Activity log</a>
+      <a href="#users">22. User management</a>
+      <a href="#profile">23. Profile &amp; password</a>
+      <a class="group">Reference</a>
+      <a href="#glossary">24. Glossary</a>
+      <a href="#faq">25. FAQ</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div class="container">
+        <h1>Travel Agency App — Complete User Guide</h1>
+        <p>The standard operating guide for our travel-agency booking &amp; billing application. The workflow is the same across every edition we deploy — only the branding, logo and web address change per agency.</p>
+        <div class="meta">Each agency uses its own web address (for example <code>your-agency.web.app</code>). Open your app's link, add it to your home screen, and follow the flows below.</div>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <h2 id="about">1. About this guide</h2>
+      <p>This guide is <b>common to all travel apps</b> we build. Every edition shares the same screens and the same step-by-step flows described here; the only differences between agencies are the name, logo, invoice header and the web address you open. Wherever this guide says "the app" or "your agency", it means your own edition.</p>
+      <p>The app runs in any modern browser on phone, tablet or computer. It works like a normal website — no installation needed. For quick access, open your app link and choose <b>Add to Home Screen</b>.</p>
+      <div class="tip"><b>Your data is always safe.</b> Adding new features never changes or deletes what you already entered — existing clients, bookings, bills and payments keep working exactly as before.</div>
+
+      <h2 id="login">2. Logging in &amp; roles</h2>
+      <ol class="steps">
+        <li>Open your agency's app link in a browser.</li>
+        <li>Enter your registered <b>phone number</b> and <b>password</b>.</li>
+        <li>Tap <b>Login</b>. You'll land on the Home dashboard.</li>
+      </ol>
+      <p>If you forget your password, an admin can reset it for you (section 22).</p>
+      <h4>Roles</h4>
+      <table>
+        <tr><th>Role</th><th>Access</th></tr>
+        <tr><td><b>Staff</b></td><td>Clients, Providers, B2B Agents, Bookings, Bills, Payments, Packages, Attestation. Profit and margin figures are hidden.</td></tr>
+        <tr><td><b>Admin</b></td><td>Everything staff can do, plus Cash/Bank Accounts, Office Expenses, Reports, Staff Activity, Activity Log and User Management. Admins also see profit/margin everywhere.</td></tr>
+      </table>
+      <div class="note">Sections marked <span class="admin">Admin</span> are visible only to admins.</div>
+
+      <h2 id="navigation">3. Navigating the app</h2>
+      <ul>
+        <li>On desktop, use the <b>sidebar</b> on the left to move between screens.</li>
+        <li>On mobile, tap the <b>menu</b> (<span class="kbd">☰</span>) or use the bottom navigation.</li>
+        <li>Lists load more as you scroll. Most lists have a <b>search</b> box and, where useful, a <b>date range filter</b>.</li>
+        <li>Add something with the <b>Add</b> button (usually top-right). Tap any row to open it, then <b>Edit</b> or <b>Delete</b> from there.</li>
+      </ul>
+      <div class="note"><b>Delete protection:</b> the app won't let you delete a record that others depend on (for example a client or provider that still has bookings). Remove or reassign those first.</div>
+
+      <h2 id="dashboard">4. Home dashboard</h2>
+      <p>The Home screen summarises the business: totals for bookings, outstanding client balances, and quick charts. Admins also see profit summaries. Use it as your daily starting point.</p>
+
+      <h2 id="clients">5. Clients</h2>
+      <p>Clients are the customers you bill.</p>
+      <h4>Add a client</h4>
+      <ol class="steps">
+        <li>Open <b>Clients</b> → <b>Add Client</b>.</li>
+        <li>Enter <b>Name</b> and <b>Phone</b> (required), plus optional alt phone, email, address.</li>
+        <li>If they owed money before using the app, enter it as <b>Opening Balance</b>.</li>
+        <li>Tap <b>Save</b>.</li>
+      </ol>
+      <h4>Edit / delete a client</h4>
+      <ol class="steps">
+        <li>Tap the client to open them.</li>
+        <li>Tap <b>Edit</b>, change details, <b>Save</b>. (Editing the opening balance can't drop it below what's already been paid against it.)</li>
+        <li>To remove, tap <b>Delete</b> — allowed only if the client has no bookings/bills.</li>
+      </ol>
+      <h4>Client statement &amp; payments</h4>
+      <ol class="steps">
+        <li>Open the client to see their <b>statement</b>: bills, payments and running balance.</li>
+        <li>Tap <b>Record Payment</b> to log money received (section 10).</li>
+        <li>Use <b>Print</b> to produce a PDF statement (with bank details and QR where configured) to print or share.</li>
+      </ol>
+
+      <h2 id="providers">6. Providers / Suppliers</h2>
+      <p>Providers are your suppliers — airlines, bus/train operators, hotels, consolidators, visa agents, medical agents, forex/remittance, purchase suppliers, etc.</p>
+      <h4>Add a provider</h4>
+      <ol class="steps">
+        <li>Open <b>Providers</b> → <b>Add Provider</b>.</li>
+        <li>Enter the name and pick one or more <b>service types</b> (a provider can supply several, e.g. Bus + Train).</li>
+        <li>Optionally add contact person, phone, email, GSTIN.</li>
+        <li>If you already owed them money, enter it as <b>Opening Balance</b> (dues brought in).</li>
+        <li>Tap <b>Save</b>.</li>
+      </ol>
+      <h4>Provider balance</h4>
+      <p>Every provider shows a running balance made of: <b>Opening + Purchases − Paid</b>.</p>
+      <ul>
+        <li><b>Purchases</b> build up automatically from the cost price of every booking taken from them.</li>
+        <li><b>Paid</b> is what you've paid them via Record Payment.</li>
+        <li>A positive balance means you owe them; zero or negative means settled / they owe you.</li>
+      </ul>
+      <h4>Record a payment to a provider</h4>
+      <ol class="steps">
+        <li>Open the provider → <b>Record Payment</b>.</li>
+        <li>Enter amount and date, then pick the <b>Cash/Bank account</b> it's paid from (the available balance is shown).</li>
+        <li>Save. Paying more than that account holds is blocked.</li>
+      </ol>
+      <h4>Payment / credit history</h4>
+      <ol class="steps">
+        <li>Open the provider → <b>History</b> to see every credit and payment.</li>
+        <li>Tap an entry to <b>edit</b> or <b>delete</b> it (corrections are safe — balances recompute).</li>
+      </ol>
+      <h4>Provider statement</h4>
+      <p>Open a provider and use <b>Statement / Print</b> for a settlement statement over any date range.</p>
+      <div class="note"><b>How supplier debt works:</b> the full cost price of a booking is what you owe the supplier. Refunding the <em>client</em> does not reduce what you owe the <em>supplier</em> — only an actual supplier credit or payment does.</div>
+
+      <h2 id="agents">7. B2B Agents</h2>
+      <p>B2B Agents are other travel businesses you trade with — in both directions.</p>
+      <h4>Add a B2B agent</h4>
+      <ol class="steps">
+        <li>Open <b>B2B Agents</b> → <b>Add Agent</b>.</li>
+        <li>Enter name, phone and optional details; enter an <b>Opening Balance</b> for any prior dues.</li>
+        <li>Save.</li>
+      </ol>
+      <h4>Agent as a customer (you sell to them)</h4>
+      <p>When creating a booking, set <b>Booking for → B2B Agent</b>. The bill goes to the agent and appears on their statement — kept entirely separate from normal client statements.</p>
+      <h4>Agent as a supplier (you buy from them)</h4>
+      <p>On a client booking, set <b>Supplier → B2B Agent</b>. You then owe that agent the booking's cost. Pay them out from the agent screen, choosing the account.</p>
+      <h4>Netted settlement &amp; statement</h4>
+      <ul>
+        <li>Each agent shows a single <b>net balance</b> = what they owe you − what you owe them.</li>
+        <li>Open an agent for a printable statement showing both the receivable and payable sides.</li>
+        <li><b>Record Payout</b> to pay an agent (from a chosen account); <b>record a credit</b> when they owe you back.</li>
+      </ul>
+
+      <h2 id="bookings">8. Bookings</h2>
+      <p>A booking is one service sold. Open <b>Bookings</b> → <b>Add Booking</b>.</p>
+      <h4>Step-by-step</h4>
+      <ol class="steps">
+        <li>Choose the <b>Booking type</b>: Flight, Bus, Train, Hotel, Visa, or Medical Appointment.</li>
+        <li><b>Booking for:</b> choose Client or B2B Agent, then pick who.</li>
+        <li><b>Supplier:</b> choose Provider or B2B Agent, then pick who supplies it. (The supplier list is filtered to types that match the booking.)</li>
+        <li>Fill the type-specific fields (see below).</li>
+        <li>Enter <b>Cost Price</b> (what you pay the supplier) and <b>Selling Price</b> (what you bill). Admins see the resulting profit.</li>
+        <li>Set the <b>Booking date</b> and any notes, then <b>Save</b>.</li>
+      </ol>
+      <h4>Fields by booking type</h4>
+      <table>
+        <tr><th>Type</th><th>Key fields</th></tr>
+        <tr><td>Flight / Bus / Train / Hotel</td><td>Route, passenger name(s), PNR, travel date</td></tr>
+        <tr><td>Visa</td><td>Visa type (in the route field), passport number (in the PNR field), travel date</td></tr>
+        <tr><td>Medical Appointment</td><td>Travel Country (instead of route/PNR/travel date); supplied by a Medical Agent</td></tr>
+      </table>
+      <h4>Edit / delete a booking</h4>
+      <ol class="steps">
+        <li>Open the booking → <b>Edit</b>, change fields, <b>Save</b>.</li>
+        <li><b>Delete</b> removes it (and is recorded in the Activity log).</li>
+      </ol>
+      <h4>Generate the bill</h4>
+      <p>From a booking, tap <b>Generate Bill</b> to create its invoice. Each booking can have only one bill; the number is assigned automatically.</p>
+
+      <h2 id="bills">9. Bills &amp; invoices</h2>
+      <p>The <b>Bills</b> screen lists every invoice with its party (a Client or a B2B Agent tag), amount and paid/pending status.</p>
+      <h4>Actions on a bill</h4>
+      <ul>
+        <li><b>Print</b> — a clean invoice with your business header, seal, and <b>bank transfer details</b> for payment.</li>
+        <li><b>Record Payment</b> — section 10.</li>
+        <li><b>Send via WhatsApp</b> — section 12.</li>
+        <li><b>Refund</b> — section 11 (for cancelled bookings).</li>
+      </ul>
+      <h4>Opening-balance bills</h4>
+      <p>A client's or agent's brought-forward due appears as a special <b>OB-</b> numbered bill so it flows through balances and payments like any other.</p>
+
+      <h2 id="payments">10. Recording payments</h2>
+      <p>Every time money comes in or goes out, you choose the <b>Cash/Bank account</b> it moved through — this keeps account balances accurate and gives real statements.</p>
+      <h4>Record money received (from a client/agent)</h4>
+      <ol class="steps">
+        <li>From a bill or the client/agent, tap <b>Record Payment</b>.</li>
+        <li>Enter the amount and date.</li>
+        <li>Pick the <b>account</b> the money went into.</li>
+        <li>Save. Over-payment (more than the amount due) is blocked automatically. A payment across several bills is split for you.</li>
+      </ol>
+      <h4>Correct or delete a payment</h4>
+      <ol class="steps">
+        <li>Open the payment history (on the client/agent).</li>
+        <li>Tap the receipt to <b>edit</b> the amount/date/account, or <b>delete</b> it — affected bills revert automatically.</li>
+      </ol>
+      <div class="note">If no accounts exist yet, the app still shows a simple method list (Cash/UPI/Bank Transfer/Other) so payments are never blocked. Create accounts (section 13) to unlock balance tracking.</div>
+
+      <h2 id="refunds">11. Refunds &amp; cancellations</h2>
+      <ol class="steps">
+        <li>Open the booking (or its bill) → <b>Refund</b>.</li>
+        <li>Enter the amount refunded to the client; any difference from the selling price is kept as a penalty (it becomes the bill's new amount).</li>
+        <li>Choose the <b>account</b> the refund is paid from.</li>
+        <li>Save. If the booking was supplied by a B2B agent, the supplier side is reconciled automatically.</li>
+      </ol>
+
+      <h2 id="whatsapp">12. Sending invoices on WhatsApp</h2>
+      <ol class="steps">
+        <li>Open a bill → <b>💬 Send via WhatsApp</b>.</li>
+        <li>The app builds the invoice as a PDF. On a phone it opens the share sheet; on a desktop it downloads the PDF and opens the WhatsApp chat for the client's number.</li>
+        <li>On desktop, attach the downloaded PDF and send — the message (amount, balance, invoice number) is pre-filled.</li>
+      </ol>
+      <div class="warn">The customer's phone number must be on the client/agent record for WhatsApp to open the right chat.</div>
+
+      <h2 id="accounts">13. Cash &amp; Bank accounts <span class="admin">Admin</span></h2>
+      <p>Accounts are the cash drawer and bank accounts your money flows through. Open <b>Accounts</b>.</p>
+      <h4>Add a bank account</h4>
+      <ol class="steps">
+        <li>Open <b>Accounts</b> → <b>Bank</b> tab → <b>Add Account</b>.</li>
+        <li>Enter the account name, bank name, account number and IFSC; optionally an opening balance.</li>
+        <li>Mark one bank as <b>Default</b> — its details print on invoices.</li>
+        <li>Save.</li>
+      </ol>
+      <p><b>Cash</b> is built in and always present; only banks are added. An account with recorded transactions can't be deleted (reassign/remove those first).</p>
+      <h4>View an account statement</h4>
+      <ol class="steps">
+        <li>Open the account.</li>
+        <li>See its <b>live balance</b> and full list of money in/out (payments, expenses, provider/agent payouts, package receipts, transfers).</li>
+        <li>Set a <b>date range</b> and <b>Print</b> the statement.</li>
+      </ol>
+
+      <h2 id="transfers">14. Transfers <span class="admin">Admin</span></h2>
+      <ol class="steps">
+        <li>Open <b>Accounts</b> → <b>Transfer</b>.</li>
+        <li>Choose the <b>from</b> and <b>to</b> accounts (must be different) and the amount.</li>
+        <li>Save. It shows as money out of one account and into the other. Transferring more than the source holds is blocked.</li>
+      </ol>
+
+      <h2 id="settlements">15. Supplier &amp; agent settlements</h2>
+      <p>"Settlement" means clearing what you owe (or are owed by) a supplier or agent.</p>
+      <ul>
+        <li><b>Providers:</b> each provider's balance is Opening + Purchases − Paid. Record payments to reduce it; open the provider for a printable settlement statement.</li>
+        <li><b>B2B Agents:</b> a single netted balance across both directions (you sold to them / you bought from them). Record payouts or credits; print the agent statement.</li>
+        <li><b>Packages:</b> costs recorded against a vendor inside a package also roll into that vendor's balance here, so all settlement lives in one place.</li>
+      </ul>
+
+      <h2 id="expenses">16. Office expenses <span class="admin">Admin</span></h2>
+      <ol class="steps">
+        <li>Open <b>Expenses</b> → <b>Add Expense</b>.</li>
+        <li>Enter the category (or a custom one), amount and date.</li>
+        <li>Pick the <b>account</b> it's paid from (reduces that account's balance).</li>
+        <li>Save. Edit or delete any expense later; print an expense report for a period.</li>
+      </ol>
+
+      <h2 id="packages">17. Packages / Group tours</h2>
+      <p>The <b>Packages</b> module runs full trip packages (Umra, Hajj, group tours, custom trips) end to end.</p>
+      <h4>Create a package (event)</h4>
+      <ol class="steps">
+        <li>Open <b>Packages</b> → <b>Add Package</b>.</li>
+        <li>Enter title, trip type (preset or custom), start/end dates, capacity (max seats) and travel modes.</li>
+        <li>Save, then open it to work through its sections.</li>
+      </ol>
+      <h4>Sections inside a package</h4>
+      <table>
+        <tr><th>Section</th><th>How to use it</th></tr>
+        <tr><td><b>Passengers</b></td><td>Add travellers one by one, or as a <b>group</b> (family/party). Set each passenger's package price. Capacity is enforced against the seats you set.</td></tr>
+        <tr><td><b>Payments</b></td><td>Record a passenger's payment (choose the account). Use <b>Group Payment</b> to collect one amount and split it across a group automatically.</td></tr>
+        <tr><td><b>Transport / Hotels / Purchases</b></td><td>Record each cost against a <b>vendor</b> (a provider or B2B agent), with mobile/remarks. These feed the settlement.</td></tr>
+        <tr><td><b>Expenses</b></td><td>Package expenses — Visa costs go to a vendor; other expenses are paid from an account.</td></tr>
+        <tr><td><b>Invoices</b></td><td>Generate a multi-passenger invoice (one per family/group); print or share it.</td></tr>
+        <tr><td><b>Settlement</b></td><td>Per-vendor breakdown: agreed cost, paid, recovered, balance.</td></tr>
+        <tr><td><b>Overview</b> <span class="admin">Admin</span></td><td>Package value, collected, total cost and profit.</td></tr>
+      </table>
+      <h4>Refund / cancel a passenger</h4>
+      <ol class="steps">
+        <li>Open the passenger → <b>Refund</b>.</li>
+        <li>Enter the refund amount and any penalty kept; choose the account.</li>
+        <li>Save — the seat is freed and any supplier recovery is captured for the settlement.</li>
+      </ol>
+
+      <h2 id="attestation">18. Attestation</h2>
+      <p>The <b>Attestation</b> screen manages certificate/document attestation jobs.</p>
+      <ol class="steps">
+        <li>Open <b>Attestation</b> → <b>Add</b>.</li>
+        <li>Pick the client, the supplier (provider or B2B agent), the country and category (preset or custom), and the cost/selling price.</li>
+        <li>Save — it creates a client bill like any booking.</li>
+        <li>Update the <b>status</b> inline as the job progresses: Processing → In Transfer → Approved / Rejected → In Transfer Back → Completed.</li>
+      </ol>
+
+      <h2 id="reports">19. Reports <span class="admin">Admin</span></h2>
+      <p>The <b>Reports</b> screen gives admins the big picture over any date range: a per-booking <b>Profit Report</b>, provider settlement totals (including package vendors), and printable summaries.</p>
+
+      <h2 id="staff">20. Staff Activity <span class="admin">Admin</span></h2>
+      <p><b>Staff Activity</b> shows how much each staff member created — bookings, packages and profit generated — over a chosen date range. Records made before this feature, or by admins, appear as "unattributed".</p>
+
+      <h2 id="activity">21. Activity log <span class="admin">Admin</span></h2>
+      <p>The <b>Activity</b> screen is a complete audit trail: every create, edit and delete across the app (bookings, bills, payments, clients, providers, accounts, transfers, B2B agents, packages and more) with who did it and when. Filter by user, type or date.</p>
+
+      <h2 id="users">22. User management <span class="admin">Admin</span></h2>
+      <ol class="steps">
+        <li>Open <b>Manage Users</b> → <b>Add User</b>.</li>
+        <li>Enter name, phone, a password and the role (staff/admin).</li>
+        <li>Save. Later you can <b>reset a password</b> or <b>deactivate</b> a user from their row.</li>
+      </ol>
+
+      <h2 id="profile">23. Profile &amp; password</h2>
+      <ol class="steps">
+        <li>Open <b>Profile</b>.</li>
+        <li>Review your details and tap <b>Change Password</b>.</li>
+        <li>Enter your current and new password, then save. Use a strong password and keep it private.</li>
+      </ol>
+
+      <h2 id="glossary">24. Glossary</h2>
+      <table>
+        <tr><th>Term</th><th>Meaning</th></tr>
+        <tr><td>Client</td><td>A customer you bill.</td></tr>
+        <tr><td>Provider / Supplier</td><td>Who you buy the service from (airline, hotel, visa/medical agent, etc.).</td></tr>
+        <tr><td>B2B Agent</td><td>Another travel business you trade with — as a customer and/or a supplier.</td></tr>
+        <tr><td>Cost / Selling price</td><td>What you pay the supplier / what you bill the customer. The difference is profit.</td></tr>
+        <tr><td>Bill / Invoice</td><td>The charge raised to a client or agent.</td></tr>
+        <tr><td>Opening balance</td><td>A due carried in from before you started using the app.</td></tr>
+        <tr><td>Account</td><td>A Cash drawer or Bank account money flows through.</td></tr>
+        <tr><td>Settlement</td><td>Clearing what you owe / are owed with a supplier or agent.</td></tr>
+        <tr><td>Package / Event</td><td>A managed group trip with passengers, vendors and invoicing.</td></tr>
+      </table>
+
+      <h2 id="faq">25. FAQ &amp; tips</h2>
+      <h3>Why does the payment form ask for an account, not a method?</h3>
+      <p>Choosing the real Cash/Bank account keeps balances correct and enables statements. If you haven't set up accounts, the old method list still appears.</p>
+      <h3>A supplier's balance looks different after an update.</h3>
+      <p>Balances use the improved model (full cost owed until you actually pay/credit the supplier). Your records are unchanged — only the calculation improved. Set each supplier's <b>Opening Balance</b> for dues carried in.</p>
+      <h3>Can a booking be for another agency?</h3>
+      <p>Yes — set <b>Booking for → B2B Agent</b>. It's billed to the agent and kept off client statements.</p>
+      <h3>How do I stop someone deleting important data?</h3>
+      <p>The app already blocks deleting a client/provider/agent that still has bookings, and every change is recorded in the Activity log.</p>
+      <h3>Is my old data safe when the app is updated?</h3>
+      <p>Yes. Updates are additive — existing clients, bookings, bills and payments continue to work unchanged.</p>
+
+    </div>
+    <footer>
+      Travel Agency App — Complete User Guide · Common to all editions we deploy.<br>
+      Open your agency's own app link to use it. For help or changes, contact your app support team.
+    </footer>
+  </main>
+</div>
+</body>
+</html>
